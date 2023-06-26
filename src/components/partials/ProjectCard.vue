@@ -6,7 +6,7 @@ export default {
     title: String,
     type: String,
     technologies: Array,
-    finished: Boolean
+    finished: Number
   }
 }
 </script>
@@ -20,18 +20,24 @@ export default {
           <span class="badge text-bg-primary">{{ type }}</span>
         </div>
 
-        <div>
+        <div class="card-text">
           <span>Tecnologie: </span>
           <span v-for="technology in technologies" :key="technology.id" class="badge text-bg-warning me-2">{{ technology.name }}</span>
           <span class="badge text-bg-danger me-2" v-if="!technologies.length">No technologies</span>
         </div>
-        <p class="card-text">Finished: <i class="fa-solid fa-check text-success" v-show="finished"></i>
-            <i class="fa-solid fa-x text-danger" v-show="!finished"></i></p>
+
+        <div class="card-text">
+          <span class="card-text me-2">Finished:</span>
+          <i class="fa-solid fa-check text-success" v-show="finished"></i>
+          <i class="fa-solid fa-x text-danger" v-show="!finished"></i>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-
+.card{
+  box-shadow: 0 0 20px rgba($color: white, $alpha: 0.2);
+}
 </style>
