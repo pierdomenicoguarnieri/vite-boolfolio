@@ -21,7 +21,7 @@ export default {
 
 <style lang="scss" scoped>
   main{
-    height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
     background-color: lighten($color: #000000, $amount: 15%);
     color: white;
     .container{
