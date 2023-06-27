@@ -25,5 +25,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
+  .card{
+    box-shadow: 0 0 20px rgba($color: white, $alpha: 0.2);
+  }
 </style>
