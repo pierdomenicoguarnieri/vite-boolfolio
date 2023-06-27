@@ -25,8 +25,6 @@ export default {
       axios.get(endpoint).then(results => {
         this.projects = results.data.data;
         this.results = results.data;
-        console.log(this.projects);
-        console.log(results.data);
       })
     }
   },
