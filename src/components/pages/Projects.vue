@@ -42,6 +42,20 @@ export default {
         this.technologies = results.data;
         console.log(this.technologies);
       })
+    },
+
+    getByType(id){
+      axios.get(store.apiUrlGetByType + id).then(results => {
+        this.projects = results.data.data;
+        this.results = results.data;
+      })
+    },
+
+    getByTechnology(id){
+      axios.get(store.apiUrlGetByTechnology + id).then(results => {
+        this.projects = results.data.data;
+        this.results = results.data;
+      })
     }
   },
 
@@ -58,21 +72,23 @@ export default {
 
   <div class="pg-filter-wrapper d-flex">
     <div class="pg-right">
-      <h3>Filtro per tipo:</h3>
-      <button class="btn btn-outline-light me-2 mb-2" @click="getApi()" v-for="type in types" :key="type.id">{{ type.name }}</button>
+      <h5>Filtro per tipo:</h5>
+      <button class="btn btn-outline-light me-2 mb-2" @click="getByType(type.id)" v-for="type in types" :key="type.id">{{ type.name }}</button>
+      <button class="btn btn-outline-danger me-2 mb-2" @click="getApi(store.apiUrl)">Reset</button>
     </div>
 
     <div class="pg-left">
-      <h3>Filtro per tecnologia:</h3>
+      <h5>Filtro per tecnologia:</h5>
       <button
         class="btn btn-outline-light me-2 mb-2"
-        @click="getApi()"
+        @click="getByTechnology(technology.id)"
         v-for="technology in technologies"
         :key="technology.id">{{ technology.name }}</button>
+      <button class="btn btn-outline-danger me-2 mb-2" @click="getApi(store.apiUrl)">Reset</button>
     </div>
   </div>
 
-  <div class="row row-cols-5 py-3">
+  <div class="row row-cols-5 mt-2">
     <ProjectCard
       v-for="project in projects"
       :key="project.id"
@@ -85,5 +101,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-  
+  button{
+    font-size: 0.8rem;
+  }
 </style>
