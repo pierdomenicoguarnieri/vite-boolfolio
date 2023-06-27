@@ -13,29 +13,28 @@ export default {
   data(){
     return{
       store,
-      types: []
+      technologies: []
     }
   },
 
   methods:{
     getApi(endpoint){
       axios.get(endpoint).then(results => {
-        this.types = results.data;
-        console.log(this.types);
+        this.technologies = results.data;
       })
     }
   },
 
   mounted(){
-    this.getApi(store.apiUrlTypes)
+    this.getApi(store.apiUrlTechnologies)
   }
 }
 </script>
 
 <template>
-  <h1>Lista dei tipi</h1>
+  <h1>Lista delle tecnologie</h1>
   <div class="row row-cols-5 py-3">
-    <TypesTechnologiesCard v-for="type in types" :key="type.id" :name="type.name" :id="type.id"/>
+    <TypesTechnologiesCard v-for="tehcnology in technologies" :key="tehcnology.id" :name="tehcnology.name" :id="tehcnology.id"/>
   </div>
 </template>
 

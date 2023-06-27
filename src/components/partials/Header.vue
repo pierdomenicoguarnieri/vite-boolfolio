@@ -17,6 +17,9 @@ export default {
         <li>
           <router-link :to="{name: 'types'}">Tipi</router-link>
         </li>
+        <li>
+          <router-link :to="{name: 'technologies'}">Tecnologie</router-link>
+        </li>
       </ul>
     </nav>
   </header>
