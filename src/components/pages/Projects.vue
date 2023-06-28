@@ -24,10 +24,11 @@ export default {
   },
 
   methods:{
-    getApi(endpoint){
-      axios.get(endpoint).then(results => {
+    getApi(url){
+      axios.get(url).then(results => {
         this.projects = results.data.data;
         this.results = results.data;
+        this.projectToSearch = '';
       })
     },
 
@@ -42,28 +43,6 @@ export default {
         this.technologies = results.data;
       })
     },
-
-    getByType(id){
-      axios.get(store.apiUrlGetByType + id).then(results => {
-        this.projects = results.data.data;
-        this.results = results.data;
-      })
-    },
-
-    getByTechnology(id){
-      axios.get(store.apiUrlGetByTechnology + id).then(results => {
-        this.projects = results.data.data;
-        this.results = results.data;
-      })
-    },
-
-    getByTitle(title){
-      axios.get(store.apiUrl + 'search/' + title).then(results => {
-        this.projects = results.data.data;
-        this.results = results.data;
-        this.projectToSearch = '';
-      })
-    }
   },
 
   mounted(){
@@ -81,7 +60,7 @@ export default {
   <div class="pg-filter-wrapper d-flex">
     <div class="pg-right">
       <h5>Filtro per tipo:</h5>
-      <button class="btn btn-outline-light me-2 mb-2" @click="getByType(type.id)" v-for="type in types" :key="type.id">{{ type.name }}</button>
+      <button class="btn btn-outline-light me-2 mb-2" @click="getApi(store.apiUrl + 'get-by-type/' + type.id)" v-for="type in types" :key="type.id">{{ type.name }}</button>
       <button class="btn btn-outline-danger me-2 mb-2" @click="getApi(store.apiUrl)">Reset</button>
     </div>
 
@@ -89,7 +68,7 @@ export default {
       <h5>Filtro per tecnologia:</h5>
       <button
         class="btn btn-outline-light me-2 mb-2"
-        @click="getByTechnology(technology.id)"
+        @click="getApi(store.apiUrl + 'get-by-technology/' + technology.id)"
         v-for="technology in technologies"
         :key="technology.id">{{ technology.name }}</button>
       <button class="btn btn-outline-danger me-2 mb-2" @click="getApi(store.apiUrl)">Reset</button>
@@ -98,8 +77,8 @@ export default {
     <div class="pg-left w-50">
       <h5>Cerca un progetto:</h5>
       <div class="input-group mb-3">
-        <input type="text" class="form-control bg-transparent text-white" v-model="projectToSearch" @keyup.enter="getByTitle(projectToSearch)">
-        <button class="btn btn-outline-light" type="button" id="button-addon2" @click="getByTitle(projectToSearch)">Cerca</button>
+        <input type="text" class="form-control bg-transparent text-white" v-model="projectToSearch" @keyup.enter="getApi(store.apiUrl + 'search/' + projectToSearch)">
+        <button class="btn btn-outline-light" type="button" id="button-addon2" @click="getApi(store.apiUrl + 'search/' + projectToSearch)">Cerca</button>
       </div>
     </div>
   </div>
