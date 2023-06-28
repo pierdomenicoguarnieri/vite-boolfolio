@@ -92,12 +92,12 @@ export default {
     <ProjectCard
       v-for="project in projects"
       :key="project.id"
-      :project="project"/>
+      :project="project"
+      @getDetail="(slug) => getApiDetails(slug)"/>
     </div>
     <Pagination
       :links="results.links"
-      :current_page="results.current_page"
-      @callApi="(url) => getApi(url)" />
+      :current_page="results.current_page"/>
 </template>
 
 <style lang="scss" scoped>

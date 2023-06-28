@@ -28,6 +28,10 @@ export default {
           <i class="fa-solid fa-check text-success" v-show="project.finished"></i>
           <i class="fa-solid fa-x text-danger" v-show="!project.finished"></i>
         </div>
+
+        <div class="card-text mt-2">
+          <button class="btn btn-outline-dark"><router-link :to="{name: 'details', params: {slug: project.slug}}">Dettagli</router-link></button>
+        </div>
       </div>
     </div>
   </div>
@@ -36,5 +40,18 @@ export default {
 <style lang="scss" scoped>
 .card{
   box-shadow: 0 0 20px rgba($color: white, $alpha: 0.2);
+  button{
+    font-size: 0.8rem;
+    a{
+      text-decoration: none;
+      color: black;
+      transition: all .2s;
+    }
+    &:hover{
+      a{
+        color: white;
+      }
+    }
+  }
 }
 </style>

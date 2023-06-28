@@ -4,6 +4,7 @@ import Home from './components/pages/Home.vue';
 import Projects from './components/pages/Projects.vue';
 import Types from './components/pages/Types.vue';
 import Technologies from './components/pages/Technologies.vue';
+import ProjectDetail from './components/pages/ProjectDetail.vue';
 import Error404 from './components/pages/Error404.vue';
 
 const router = createRouter({
@@ -30,6 +31,11 @@ const router = createRouter({
       path: '/tecnologie',
       name: 'technologies',
       component: Technologies
+    },
+    {
+      path: '/progetti/:slug',
+      name: 'details',
+      component: ProjectDetail
     },
 
     {
