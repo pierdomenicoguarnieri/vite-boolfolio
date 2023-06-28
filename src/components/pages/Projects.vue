@@ -18,7 +18,8 @@ export default {
       projects: [],
       results: [],
       types: [],
-      technologies: []
+      technologies: [],
+      projectToSearch: ''
     }
   },
 
@@ -33,14 +34,12 @@ export default {
     getTypes(endpoint){
       axios.get(endpoint).then(results => {
         this.types = results.data;
-        console.log(this.types);
       })
     },
 
     getTechnologies(endpoint){
       axios.get(endpoint).then(results => {
         this.technologies = results.data;
-        console.log(this.technologies);
       })
     },
 
@@ -56,10 +55,19 @@ export default {
         this.projects = results.data.data;
         this.results = results.data;
       })
+    },
+
+    getByTitle(title){
+      axios.get(store.apiUrl + 'search/' + title).then(results => {
+        this.projects = results.data.data;
+        this.results = results.data;
+        this.projectToSearch = '';
+      })
     }
   },
 
   mounted(){
+    this.projects = []
     this.getApi(store.apiUrl)
     this.getTypes(store.apiUrlTypes)
     this.getTechnologies(store.apiUrlTechnologies)
@@ -77,7 +85,7 @@ export default {
       <button class="btn btn-outline-danger me-2 mb-2" @click="getApi(store.apiUrl)">Reset</button>
     </div>
 
-    <div class="pg-left">
+    <div class="pg-center">
       <h5>Filtro per tecnologia:</h5>
       <button
         class="btn btn-outline-light me-2 mb-2"
@@ -86,18 +94,26 @@ export default {
         :key="technology.id">{{ technology.name }}</button>
       <button class="btn btn-outline-danger me-2 mb-2" @click="getApi(store.apiUrl)">Reset</button>
     </div>
+
+    <div class="pg-left w-50">
+      <h5>Cerca un progetto:</h5>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control bg-transparent text-white" v-model="projectToSearch" @keyup.enter="getByTitle(projectToSearch)">
+        <button class="btn btn-outline-light" type="button" id="button-addon2" @click="getByTitle(projectToSearch)">Cerca</button>
+      </div>
+    </div>
   </div>
 
   <div class="row row-cols-5 mt-2">
     <ProjectCard
       v-for="project in projects"
       :key="project.id"
-      :project="project"
-      @getDetail="(slug) => getApiDetails(slug)"/>
+      :project="project"/>
     </div>
     <Pagination
       :links="results.links"
-      :current_page="results.current_page"/>
+      :current_page="results.current_page"
+      @callApi="(url) => getApi(url)" />
 </template>
 
 <style lang="scss" scoped>

@@ -34,10 +34,10 @@ export default {
 </script>
 
 <template>
+  <div class="pg-card-wrapper w-100 d-flex justify-content-center">
   <Loader v-if="!loaded"/>
-  <div class="pg-card-wrapper w-100 d-flex justify-content-center" v-else>
-    <div class="card w-75">
-      <img src="..." class="card-img-top" alt="...">
+    <div class="card w-50" v-else>
+      <img :src="project.image_path" class="card-img-top" :alt="project.image_original_name" :title="project.image_original_name">
       <div class="card-body">
         <h5 class="card-title">{{ project.title }}</h5>
         <div class="card-text my-2">
@@ -64,5 +64,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
+  .card{
+    .card-img-top{
+      max-height: 400px;
+      object-fit: contain;
+    }
+  }
 </style>
