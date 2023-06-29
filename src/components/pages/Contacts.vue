@@ -11,7 +11,8 @@ export default {
       email: '',
       message: '',
       errors: {},
-      sending: false
+      sending: false,
+      success: false
     }
   },
 
@@ -24,11 +25,11 @@ export default {
         message: this.message
       }
       axios.post(store.apiUrlPost + '/contact/', data).then(result => {
+        this.success = result.data.success;
         if(!result.data.success){
           this.errors = result.data.errors;
-          console.log(this.errors);
-          this.sending = false;
         }
+        this.sending = false;
       })
     }
   }
@@ -40,7 +41,8 @@ export default {
 
 
   <div class="pg-form-wrapper bg-white text-black rounded-2 p-2 border border-dark-subtle border-1">
-    <form @submit.prevent="sendForm()">
+    <h2 class="text-success py-5" v-if="success">Form inviato correttamente</h2>
+    <form @submit.prevent="sendForm()" v-else>
       <div class="mb-3">
         <label for="title" class="form-label">Titolo</label>
         <input type="text" name="title" class="form-control" :class="{'is-invalid' : errors.title, 'is-valid' : !errors.title && title != ''}" placeholder="Example" v-model.trim="title">
@@ -59,6 +61,7 @@ export default {
       <button type="submit" class="btn btn-success" :disabled="sending">{{sending ? 'Invio in corso...' : 'Invia'}}</button>
     </form>
   </div>
+
 
 </template>
 
