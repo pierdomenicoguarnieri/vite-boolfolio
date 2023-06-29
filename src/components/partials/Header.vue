@@ -20,6 +20,9 @@ export default {
         <li>
           <router-link :to="{name: 'technologies'}">Tecnologie</router-link>
         </li>
+        <li>
+          <router-link :to="{name: 'contacts'}">Contatti</router-link>
+        </li>
       </ul>
     </nav>
   </header>
